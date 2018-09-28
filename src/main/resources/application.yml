@@ -1,14 +1,54 @@
-zuul:
-  routes:
-    user:
-      path: /api/login/**
-      url: http://localhost:8082/login
-    user2:
-      path: /api/registration/**
-      url: http://localhost:8082/registration
-    todos:
-      path: /api/todos/**
-      url: http://localhost:8080/todos
-
 server:
   port: 8088
+  context-path: /api
+
+#user-service:
+#  ribbon:
+#    listOfServers: localhost:8082
+#
+#todo-service:
+#  ribbon:
+#    listOfServers: localhost:8080
+
+
+
+
+zuul:
+  routes:
+    #    user:
+    #      path: /api/login/**
+    #      url: http://localhost:8082/login
+    #    user2:
+    #      path: /api/registration/**
+    #      url: http://localhost:8082/registration
+    user:
+      path: /users/**
+      serviceId: user-service
+      stripPrefix: false
+
+    todos:
+      path: /todos/**
+      serviceId: todo-service
+      stripPrefix: false
+
+    tags:
+      path: /tags/**
+      serviceId: todo-service
+      stripPrefix: false
+
+
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        health-check-path: /api/health
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 15000
