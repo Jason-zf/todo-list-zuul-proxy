@@ -15,40 +15,55 @@ server:
 
 zuul:
   routes:
+    user:
+      path: /users/**
+      url: http://localhost:8082
+      stripPrefix: false
+
+    todos:
+      path: /todos/**
+      url: http://localhost:8080
+      stripPrefix: false
+
+    #    tags:
+    #      path: /tags/**
+    #      serviceId: localhost:8080
+    #      stripPrefix: false
+
     #    user:
     #      path: /api/login/**
     #      url: http://localhost:8082/login
     #    user2:
     #      path: /api/registration/**
     #      url: http://localhost:8082/registration
-    user:
-      path: /users/**
-      serviceId: user-service
-      stripPrefix: false
+#    user:
+#      path: /users/**
+#      serviceId: user-service
+#      stripPrefix: false
+#
+#    todos:
+#      path: /todos/**
+#      serviceId: todo-service
+#      stripPrefix: false
+#
+#    tags:
+#      path: /tags/**
+#      serviceId: todo-service
+#      stripPrefix: false
 
-    todos:
-      path: /todos/**
-      serviceId: todo-service
-      stripPrefix: false
 
-    tags:
-      path: /tags/**
-      serviceId: todo-service
-      stripPrefix: false
-
-
-spring:
-  cloud:
-    consul:
-      host: localhost
-      port: 8500
-      discovery:
-        health-check-path: /api/health
-
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 15000
+#spring:
+#  cloud:
+#    consul:
+#      host: localhost
+#      port: 8500
+#      discovery:
+#        health-check-path: /api/health
+#
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 15000
