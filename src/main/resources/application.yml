@@ -12,9 +12,9 @@ zuul:
 
     tags:
       path: /tags/**
-      serviceId: http://localhost:8080
+      url: http://localhost:8080
       stripPrefix: false
 
-#server:
-#  port: 8088
-#  context-path: /api
+server:
+  port: 8088
+  context-path: /api
